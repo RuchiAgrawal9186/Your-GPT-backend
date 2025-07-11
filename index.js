@@ -8,8 +8,11 @@ app.use(express.json())
 app.use(cors({
   origin: "https://yourgpt-kappa.vercel.app", // ✅ Replace with your actual Vercel domain
   methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 }));
+
+app.options("*", cors());
 
 // import routes
 const {userRouter} = require("./routes/user.routes")
