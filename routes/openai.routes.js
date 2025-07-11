@@ -38,7 +38,6 @@ apiRouter.post("/summary", async (req, res) => {
 apiRouter.post("/paragraph", async (req, res) => {
   try {
     const { text } = req.body;
-
     const { data } = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: `Write a detail paragraph about:\n${text}`,

@@ -5,12 +5,29 @@ const cors = require("cors")
 const app = express()
 app.use(express.json())
 // app.use(cors())
-app.use(cors({
-  origin: "https://yourgpt-kappa.vercel.app", // ✅ Replace with your actual Vercel domain
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-}));
+// app.use(cors({
+//   origin: "https://yourgpt-kappa.vercel.app", // ✅ Replace with your actual Vercel domain
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+//   allowedHeaders: ["Content-Type", "Authorization"],
+//   credentials: true,
+// }));
+const allowedOrigins = [
+  "https://yourgpt-kappa.vercel.app",
+  "http://localhost:3000",
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 
 app.options("*", cors());
 
