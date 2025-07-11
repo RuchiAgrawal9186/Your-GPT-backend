@@ -4,7 +4,12 @@ const cors = require("cors")
 
 const app = express()
 app.use(express.json())
-app.use(cors())
+// app.use(cors())
+app.use(cors({
+  origin: "https://yourgpt-kappa.vercel.app", // ✅ Replace with your actual Vercel domain
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+}));
 
 // import routes
 const {userRouter} = require("./routes/user.routes")
